@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blogi – Vaiksed Eesliinid</title>
+  <meta name="description" content="Praktilised lood ja kontrollitud teadmised – lihtsalt kasutatavad, kohe rakendatavad.">
+  <link rel="canonical" href="https://www.vaiksedeesliinid.ee/blog/">
+  <meta name="theme-color" content="#c98b8b">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Liigu sisu juurde</a>
+
+  <!-- HEADER (identical to index.html) -->
+  <header>
+    <div class="container navbar">
+      <a class="brand" href="../index.html" aria-label="Avaleht">
+        <img src="../assets/vaiksed-eesliinid-logo-long.png" alt="Vaiksed Eesliinid logo" height="44">
+      </a>
+      <nav class="navlinks" aria-label="Põhinavigatsioon">
+        <a href="../index.html#missioon">Missioon</a>
+        <a href="../index.html#projekt">Projekt</a>
+        <a href="./index.html" aria-current="page">Blogi</a>
+        <a href="../index.html#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO (same rhythm as homepage) -->
+  <section class="page-hero">
+    <div class="container-narrow">
+      <h1>Blogi</h1>
+      <p class="lead">Praktilised lood ja kontrollitud teadmised – lihtsalt kasutatavad, kohe rakendatavad.</p>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <main id="content" class="page-body">
+    <div class="container-narrow">
+      <div class="blog-grid" id="blogList">
+        <!-- posts are rendered by the script -->
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER (identical to index.html) -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="../assets/vaiksed-eesliinid-logo-long.png" alt="" height="38">
+        <a href="mailto:info@vaiksedeesliinid.ee">info@vaiksedeesliinid.ee</a>
+      </div>
+      <div class="footer-links">
+        <a href="../privacy.html">Privaatsuspoliitika ja tingimused</a>
+      </div>
+    </div>
+    <div class="container">
+      <small>© 2025 | Vaiksed Eesliinid | Kõik õigused kaitstud</small>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal “headless CMS”: fetch posts from JSON (same as earlier)
+    fetch('./posts.json').then(r => r.json()).then(posts => {
+      const list = document.getElementById('blogList');
+      posts.sort((a,b)=> new Date(b.date)-new Date(a.date));
+      list.innerHTML = posts.map(p=>`
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+          <h2 itemprop="headline"><a href="${p.url}">${p.title}</a></h2>
+          <time datetime="${p.date}" itemprop="datePublished">
+            ${new Date(p.date).toLocaleDateString('et-EE')}
+          </time>
+          <p itemprop="description">${p.excerpt}</p>
+        </article>
+      `).join('');
+    });
+  </script>
+</body>
+</html>

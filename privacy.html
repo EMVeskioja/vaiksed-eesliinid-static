@@ -3,21 +3,126 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privaatsuspoliitika – Vaiksed Eesliinid</title>
+  <title>Privaatsuspoliitika ja tingimused – Vaiksed Eesliinid</title>
+  <meta name="description" content="Vaiksed Eesliinid privaatsuspoliitika ja kasutustingimused.">
+  <link rel="canonical" href="https://www.vaiksedeesliinid.ee/privacy.html">
+  <meta name="theme-color" content="#c98b8b">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
+  <a class="skip" href="#content">Liigu sisu juurde</a>
+
+  <!-- HEADER (same as index.html) -->
+  <header class="page-header">
     <div class="container navbar">
-      <a class="brand" href="index.html#top"><img src="assets/logo.svg" alt="Vaiksed Eesliinid logo"><span class="title">Vaiksed Eesliinid</span></a>
-      <nav><a href="index.html#missioon">Missioon</a><a href="index.html#projekt">Projekt</a><a href="/blog">Blogi</a><a href="index.html#kontakt">Kontakt</a></nav>
+      <a class="brand" href="index.html" aria-label="Avaleht">
+        <img src="assets/vaiksed-eesliinid-logo-long.png" alt="Vaiksed Eesliinid logo" height="44">
+        <!-- <span class="title">Vaiksed Eesliinid</span> -->
+      </a>
+      <nav class="navlinks" aria-label="Põhinavigatsioon">
+        <a href="index.html#missioon">Missioon</a>
+        <a href="index.html#projekt">Projekt</a>
+        <a href="blog/index.html">Blogi</a>
+        <a href="index.html#kontakt">Kontakt</a>
+      </nav>
     </div>
   </header>
-  <main class="container">
-    <section class="hero">
-      <h1>Privaatsuspoliitika</h1>
-      <p class="lead">Lisa siia oma privaatsuspoliitika. Kontaktipäringute töötlemine – õigustatud huvi; uudiskiri – nõusolek (opt‑in).</p>
-    </section>
+
+  <!-- PAGE HERO (same alignment as homepage hero) -->
+  <section class="page-hero">
+    <div class="container-narrow">
+      <h1>Privaatsuspoliitika ja tingimused</h1>
+      <p class="lead">Selgitame, milliseid andmeid kogume ja miks, kui kaua neid säilitame ning millised on sinu õigused. Töötleme andmeid kooskõlas GDPR-iga ja Eesti õigusega.</p>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <main id="content" class="page-body">
+    <div class="container-narrow prose">
+      <h2>Vastutav töötleja</h2>
+      <p><strong>Vaiksed Eesliinid</strong> (MTÜ Rahu Nimel pärandprojekt). Kontakt: <a href="mailto:info@vaiksedeesliinid.ee">info@vaiksedeesliinid.ee</a>.</p>
+
+      <h2>Milliseid andmeid kogume</h2>
+      <ul>
+        <li><strong>Kontaktivorm:</strong> nimi, e-post, ettevõte (vabatahtlik), sõnum.</li>
+        <li><strong>Uudiskiri:</strong> e-post ja nõusoleku aeg (double-opt-in, kui teenus toetab).</li>
+        <li><strong>Tehnilised logid:</strong> agregeeritud seadme- ja kasutusandmed (nt brauser, viitaja). Ei kasuta mittevajalikke küpsiseid ilma nõusolekuta.</li>
+        <li><strong>Maksed/annetused:</strong> kui rakendub, tehinguga seotud miinimumandmed (makseteenuse halduses).</li>
+      </ul>
+
+      <h2>Eesmärgid ja õiguslik alus</h2>
+      <ul>
+        <li>Päringutele vastamine ja koostöö alustamine – õigustatud huvi / lepingueelsed toimingud.</li>
+        <li>Uudiskirjade saatmine – nõusolek (saad tühistada igal ajal).</li>
+        <li>Veebilehe turvalisus ja täiustamine – õigustatud huvi (minimeeritud, agregeeritud).</li>
+        <li>Õigusnõuete täitmine – õiguslik kohustus.</li>
+      </ul>
+
+      <h2>Säilitamistähtajad</h2>
+      <ul>
+        <li>Kontaktivormi kirjavahetus: kuni <strong>12 kuud</strong> pärast viimast kontakti.</li>
+        <li>Uudiskirja andmed: kuni nõusoleku tagasivõtmiseni (säilitame miinimumi tõenduseks).</li>
+        <li>Tehingu-/annetuse andmed: vastavalt seadusest tulenevatele tähtaegadele.</li>
+      </ul>
+
+      <h2>Vastuvõtjad ja volitatud töötlejad</h2>
+      <ul>
+        <li><strong>E-post ja domeen:</strong> Zone.ee (MX, SPF, DKIM; postkast <code>info@vaiksedeesliinid.ee</code>).</li>
+        <li><strong>Kontaktivorm:</strong> Formspree (või samaväärne).</li>
+        <li><strong>Uudiskiri:</strong> Buttondown / MailerLite (või samaväärne).</li>
+        <li><strong>Makseteenus:</strong> kui rakendub, vastav maksepakkuja (nt Stripe/MakeCommerce jmt).</li>
+      </ul>
+
+      <h2>Edastamine väljapoole EL/EMP</h2>
+      <p>Vältime andmete rahvusvahelist edastamist. Kui see on vältimatu, kasutame sobivaid kaitsemeetmeid (nt EL standardlepingud).</p>
+
+      <h2>Küpsised</h2>
+      <p>Kasutame vaid hädavajalikke küpsiseid. Kolmandate osapoolte manused võivad seada oma küpsiseid vastavalt nende tingimustele.</p>
+
+      <h2>Turvalisus</h2>
+      <ul>
+        <li>HTTPS ja turvalised ühendused.</li>
+        <li>SPF/DKIM/DMARC domeeni kirjad.</li>
+        <li>Juurdepääsu minimeerimine.</li>
+      </ul>
+
+      <h2>Alaealised</h2>
+      <p>Teenused ei ole suunatud alla 13-aastastele.</p>
+
+      <h2>Sinu õigused</h2>
+      <p>Ligipääs, parandamine, kustutamine, piiramine, vastuväited, nõusoleku tagasivõtmine. Kirjuta: <a href="mailto:info@vaiksedeesliinid.ee">info@vaiksedeesliinid.ee</a>.</p>
+
+      <h2>Kaebus</h2>
+      <p>Võid pöörduda Andmekaitse Inspektsiooni või elukohajärgse järelevalveasutuse poole ELis.</p>
+
+      <p><small>Viimati uuendatud: <time datetime="2025-10-03">03.10.2025</time></small></p>
+
+      <hr>
+
+      <h1>Kasutustingimused</h1>
+      <ul>
+        <li>Veebisisu on informatiivne ega asenda professionaalset nõu.</li>
+        <li>Materjalide tsiteerimisel viita allikale. Logod ja kaubamärgid on omanike omad.</li>
+        <li>Võid linkida meie lehele, kui link ei eksita ega kahjusta mainet.</li>
+      </ul>
+    </div>
   </main>
+
+  <!-- FOOTER (same as index.html) -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="assets/vaiksed-eesliinid-logo-long.png" alt="" height="38">
+        <a href="mailto:info@vaiksedeesliinid.ee">info@vaiksedeesliinid.ee</a>
+      </div>
+      <div class="footer-links">
+        <a aria-current="page">Privaatsuspoliitika ja tingimused</a>
+      </div>
+    </div>
+    <div class="container">
+      <small>© 2025 | Vaiksed Eesliinid | Kõik õigused kaitstud</small>
+    </div>
+  </footer>
 </body>
 </html>
