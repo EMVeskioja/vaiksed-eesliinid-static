@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="et">
 <head>
@@ -15,6 +16,9 @@
   <meta property="og:url" content="https://www.vaiksedeesliinid.ee/">
   <meta name="theme-color" content="#c98b8b">
 
+  <!-- Performance: fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Font & Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
@@ -79,36 +83,48 @@
     <!-- CONTACT -->
     <section id="kontakt" class="section-muted">
       <div class="container">
-        <h2>Võta meiega ühendust</h2>
+        <!-- Note: replace XXXXYYYY with your real Formspree form ID -->
+        <form id="contactForm" action="https://formspree.io/f/XXXXYYYY" method="POST" novalidate class="contact-card">
+          <h2 class="form-title">Võta meiega ühendust</h2>
+          <hr class="form-rule" aria-hidden="true">
 
-        <form id="contactForm" action="#" method="post" novalidate>
-          <div class="form-row">
-            <label>
-              <span>Nimi*</span>
+          <div class="form-grid">
+            <label class="field">
+              <span class="label">Nimi*</span>
               <input type="text" name="name" autocomplete="name" required>
             </label>
-            <label>
-              <span>Ettevõte</span>
+
+            <label class="field">
+              <span class="label">Ettevõte</span>
               <input type="text" name="company" autocomplete="organization">
             </label>
           </div>
 
-          <label>
-            <span>Email*</span>
+          <label class="field">
+            <span class="label">Email*</span>
             <input type="email" name="email" autocomplete="email" required>
+            <small class="hint">example@example.com</small>
           </label>
 
-          <label>
-            <span>Sõnum</span>
+          <label class="field">
+            <span class="label">Sõnum</span>
             <textarea name="message"></textarea>
           </label>
 
-          <div class="form-actions">
+          <!-- Honeypot -->
+          <label class="hp">Jäta tühjaks<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+
+          <!-- Helpful metadata -->
+          <input type="hidden" name="_subject" value="Kontakt: Vaiksed Eesliinid">
+          <input type="hidden" name="_replyto" value="info@vaiksedeesliinid.ee">
+
+          <div class="form-actions stacked">
             <label class="checkbox">
               <input type="checkbox" name="newsletter" value="yes">
               <span>Jah, liitun uudiskirjaga</span>
             </label>
-            <button type="submit">Saada</button>
+
+            <button type="submit" class="btn-primary">Saada</button>
           </div>
 
           <p class="form-note">

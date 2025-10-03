@@ -1,3 +1,4 @@
+<!-- blog/index.html -->
 <!doctype html>
 <html lang="et">
 <head>
@@ -7,13 +8,15 @@
   <meta name="description" content="Praktilised lood ja kontrollitud teadmised – lihtsalt kasutatavad, kohe rakendatavad.">
   <link rel="canonical" href="https://www.vaiksedeesliinid.ee/blog/">
   <meta name="theme-color" content="#c98b8b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <a class="skip" href="#content">Liigu sisu juurde</a>
 
-  <!-- HEADER (identical to index.html) -->
+  <!-- HEADER -->
   <header>
     <div class="container navbar">
       <a class="brand" href="../index.html" aria-label="Avaleht">
@@ -28,7 +31,7 @@
     </div>
   </header>
 
-  <!-- HERO (same rhythm as homepage) -->
+  <!-- HERO -->
   <section class="page-hero">
     <div class="container-narrow">
       <h1>Blogi</h1>
@@ -39,13 +42,13 @@
   <!-- BODY -->
   <main id="content" class="page-body">
     <div class="container-narrow">
-      <div class="blog-grid" id="blogList">
+      <div class="blog-grid" id="blogList" aria-live="polite">
         <!-- posts are rendered by the script -->
       </div>
     </div>
   </main>
 
-  <!-- FOOTER (identical to index.html) -->
+  <!-- FOOTER -->
   <footer>
     <div class="container footer-grid">
       <div class="footer-brand">
@@ -62,20 +65,28 @@
   </footer>
 
   <script>
-    // Minimal “headless CMS”: fetch posts from JSON (same as earlier)
-    fetch('./posts.json').then(r => r.json()).then(posts => {
+    (function(){
       const list = document.getElementById('blogList');
-      posts.sort((a,b)=> new Date(b.date)-new Date(a.date));
-      list.innerHTML = posts.map(p=>`
-        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
-          <h2 itemprop="headline"><a href="${p.url}">${p.title}</a></h2>
-          <time datetime="${p.date}" itemprop="datePublished">
-            ${new Date(p.date).toLocaleDateString('et-EE')}
-          </time>
-          <p itemprop="description">${p.excerpt}</p>
-        </article>
-      `).join('');
-    });
+      fetch('./posts.json')
+        .then(r => r.ok ? r.json() : [])
+        .then(posts => {
+          if(!Array.isArray(posts) || !posts.length){
+            list.innerHTML = '<p class="prose" style="margin:auto;text-align:center;color:#8c8c8c">Uudiseid peagi.</p>';
+            return;
+          }
+          posts.sort((a,b)=> new Date(b.date)-new Date(a.date));
+          list.innerHTML = posts.map(p=>`
+            <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+              <h2 itemprop="headline"><a href="${p.url}">${p.title}</a></h2>
+              <time datetime="${p.date}" itemprop="datePublished">
+                ${new Date(p.date).toLocaleDateString('et-EE')}
+              </time>
+              <p itemprop="description">${p.excerpt}</p>
+            </article>
+          `).join('');
+        })
+        .catch(()=>{ list.innerHTML = '<p class="prose" style="margin:auto;text-align:center;color:#8c8c8c">Uudiseid peagi.</p>'; });
+    })();
   </script>
 </body>
 </html>

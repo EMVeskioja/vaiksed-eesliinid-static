@@ -1,9 +1,20 @@
+/* styles.css */
+/* ==========================================================================
+   Vaiksed Eesliinid — global styles
+   - Unified typography (headings weight 500, consistent dark grey)
+   - Minimalist cards (features, blog, contact)
+   - Accessible focus states, skip link
+   - Contact form styled like the minimalist reference (centered, thin divider,
+     light-grey inputs, outline button that inverts on hover)
+   ========================================================================== */
+
 /* ===== BASE VARIABLES ===== */
 :root{
   --color-bg:#ffffff;
   --color-bg-alt:#f7f7f7;
-  --color-text:#1e1e1e;
-  --color-text-muted:#9f9f9f;
+  --color-text:#1e1e1e;           /* dark grey for body + headings */
+  --color-text-muted:#8c8c8c;     /* subtle secondary copy */
+  --color-nav:#0f0f0f;            /* nav a bit darker than body text */
   --color-border:#e6e6e6;
 
   --color-accent-1:#c98b8b; /* rose */
@@ -25,6 +36,7 @@
 
 /* ===== GLOBAL ===== */
 *{ box-sizing:border-box; }
+html:focus-within{ scroll-behavior:smooth; }
 body{
   margin:0;
   font-family:var(--ff-sans);
@@ -32,6 +44,7 @@ body{
   font-weight:400;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  background: var(--color-bg);
 }
 a{ color:inherit; text-decoration:none; }
 a:hover{ text-decoration:underline; }
@@ -41,12 +54,20 @@ img{ max-width:100%; display:block; }
 .page-centered{ text-align:center; }
 section{ padding-block: clamp(var(--s-4), 5vw, var(--s-6)); }
 
+/* Focus styles (accessibility) */
+:where(a,button,input,textarea) :focus{ outline:none; }
+:where(a,button,input,textarea):focus-visible{
+  outline: 2px solid var(--color-accent-1);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 /* ===== TYPOGRAPHY ===== */
 h1,h2,h3,h4,h5,h6{
   font-family:var(--ff-sans);
-  font-weight:400;
+  font-weight:500;                 /* unified heading weight */
   margin:0 0 .75rem 0;
-  color:var(--color-text);
+  color:var(--color-text);         /* same dark grey for headings */
 }
 h1{ font-size:clamp(1.75rem,4vw,2.625rem); line-height:1.22; }
 h2{ font-size:clamp(1.375rem,3vw,2rem); line-height:1.24; }
@@ -88,8 +109,9 @@ header{
 .navbar{ display:flex; align-items:center; justify-content:space-between; padding-block:.7rem; }
 .brand img{ height:44px; width:auto; }
 .navlinks{ display:flex; gap:var(--s-2); }
-.navlinks a{ padding:.35rem .7rem; border-radius:8px; }
+.navlinks a{ padding:.35rem .7rem; border-radius:8px; color:var(--color-nav); font-weight:500; }
 .navlinks a:hover{ background:var(--color-bg-alt); }
+.navlinks a[aria-current="page"]{ background:var(--color-bg-alt); }
 
 /* ===== FEATURES ===== */
 .features{
@@ -116,43 +138,102 @@ header{
 
 /* ===== CONTACT ===== */
 .section-muted{ background:var(--color-bg-alt); }
-#contactForm{
-  width:min(100%, 640px);
-  margin-inline:auto;
+
+/* Card look like reference: centered, thin divider, light-grey inputs */
+.contact-card{
+  width:min(100%, 760px);
+  margin:0 auto;
   background:#fff;
-  padding: var(--s-4);
   border:1px solid var(--color-border);
-  border-radius:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,.05);
+  border-radius:20px;
+  padding: clamp(var(--s-4), 4vw, var(--s-5));
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  text-align:center;
 }
-.form-row{ display:grid; gap:var(--s-2); grid-template-columns: 1fr 1fr; }
-@media (max-width:700px){ .form-row{ grid-template-columns:1fr; } }
-label > span{ display:block; margin-bottom:.35rem; color: var(--color-text); }
+.form-title{
+  font-size:clamp(1.5rem, 3.2vw, 2rem);
+  font-weight:500;
+  color:var(--color-text);
+  margin:0;
+}
+.form-rule{
+  border:0; height:1px;
+  background: var(--color-border);
+  margin: 1rem 0 1.5rem;
+}
+
+.form-grid{
+  display:grid; gap: var(--s-2);
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width:700px){ .form-grid{ grid-template-columns:1fr; } }
+
+.field{ display:block; margin-bottom: var(--s-2); text-align:center; }
+.label{
+  display:block;
+  font-weight:500;
+  margin-bottom:.4rem;
+  color: var(--color-text);
+}
+.hint{
+  display:block;
+  font-size:.9rem;
+  color: var(--color-text-muted);
+  margin-top:.35rem;
+}
+
 input, textarea{
-  width:100%; padding:.75rem 1rem;
+  width:100%;
+  padding: .9rem 1rem;
   border:1px solid var(--color-border);
-  border-radius:10px; font:inherit;
+  border-radius:12px;
+  background: var(--color-bg-alt);   /* light grey like reference */
+  font:inherit;
+  text-align:left;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
 }
-textarea{ min-height:120px; resize:vertical; }
-.form-actions{
+input::placeholder, textarea::placeholder{ color:#b7b7b7; }
+input:focus, textarea:focus{
+  outline: none;
+  border-color: var(--color-accent-1);
+  background:#fff;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-accent-1) 18%, transparent);
+}
+textarea{ min-height:140px; resize:vertical; }
+
+.form-actions.stacked{
   margin-top: var(--s-2);
-  display:flex; gap: var(--s-2); align-items:center; justify-content:center; flex-wrap:wrap;
+  display:flex; align-items:center; justify-content:center; gap: var(--s-2);
+  flex-wrap:wrap;
 }
-.checkbox{ display:flex; align-items:center; gap:.55rem; }
-button{
-  background:#fff; color:#2a2a2a;
-  border:1px solid var(--color-border);
-  border-radius:10px;
-  padding:.75rem 1.15rem;
-  font-weight:600; cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,.05);
+.checkbox{ display:flex; align-items:center; gap:.6rem; justify-content:center; }
+
+.btn-primary{
+  background:#fff;                 /* outline button that inverts on hover */
+  color:#111;
+  border:1.5px solid #111;
+  border-radius:12px;
+  padding:.85rem 1.5rem;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:none;
+  transition: background .15s ease, color .15s ease, transform .05s ease;
 }
-button:hover{ background: var(--color-bg-alt); }
+.btn-primary:hover{ background:#111; color:#fff; }
+.btn-primary:active{ transform: translateY(1px); }
+
 .form-note{
   margin-top: var(--s-2);
-  color:#2a2a2a;
   font-size:.95rem; text-align:center;
+  color: var(--color-text);
 }
+
+/* Honeypot for spam (kept out of layout) */
+.hp{ position:absolute !important; left:-9999px !important; width:1px; height:1px; overflow:hidden; }
+
+/* Success / error states (script writes classes) */
+.form-success{ border-color:#9dbb9d; box-shadow: 0 10px 24px rgba(0,0,0,.05), 0 0 0 4px rgba(157,187,157,.18) inset; }
+.form-error{ border-color:#e6a3a3; box-shadow: 0 10px 24px rgba(0,0,0,.05), 0 0 0 4px rgba(233,150,150,.18) inset; }
 
 /* ===== FOOTER ===== */
 footer{
@@ -175,23 +256,18 @@ footer small{
   font-size:.85rem;
 }
 
-/* ===== SKIP LINK (accessible, invisible by default) ===== */
+/* ===== SKIP LINK ===== */
 .skip{
   position:absolute;
   left:-9999px;
   top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-  white-space:nowrap;
+  width:1px; height:1px;
+  overflow:hidden; white-space:nowrap;
 }
-
 .skip:focus{
   position:absolute;
-  left:1rem;
-  top:1rem;
-  width:auto;
-  height:auto;
+  left:1rem; top:1rem;
+  width:auto; height:auto;
   padding:.5rem 1rem;
   background:#fff;
   border:1px solid var(--color-border);
@@ -199,7 +275,8 @@ footer small{
   box-shadow:0 2px 6px rgba(0,0,0,.1);
   z-index:1000;
 }
-/* ===== TYPOGRAPHY / PROSE (for long-form pages like privacy, blog posts) ===== */
+
+/* ===== PROSE (privacy, posts) ===== */
 .prose{
   color:var(--color-text);
   font-size:1rem;
@@ -223,27 +300,13 @@ footer small{
   border-radius:10px;
 }
 
-/* Page wrappers so long-form pages align like homepage */
+/* Page wrappers to keep rhythm consistent */
 .page-header{ background:#fff; border-bottom:1px solid var(--color-border); }
 .page-hero{ padding-top: var(--s-6); padding-bottom: var(--s-4); text-align:center; }
 .page-hero .lead{ color:var(--color-text-muted); max-width:66ch; margin:.75rem auto 0; }
 .page-body{ padding-block: clamp(var(--s-4),5vw,var(--s-6)); }
 
-/* Ensure nav + footer always match */
-.navlinks a{ display:inline-block; padding:.35rem .7rem; border-radius:8px; }
-.navlinks a[aria-current="page"]{ background:var(--color-bg-alt); }
-
-/* Optional: tighter logo/title alignment if using a text title next to logo */
-.brand{ display:flex; align-items:center; gap:.6rem; }
-.brand .title{ font-weight:500; font-size:1rem; color:var(--color-text); }
-
-/* Blog cards align with site style */
-.post{ border:1px solid var(--color-border); border-radius:14px; background:#fff;
-       padding:1rem 1.25rem; box-shadow:0 6px 16px rgba(0,0,0,.05); }
-.post h2{ margin:.25rem 0 .35rem; }
-.post time{ color:var(--color-text-muted); font-size:.9rem; }
-
-/* ===== BLOG LIST PAGE ===== */
+/* ===== BLOG LIST & POST ===== */
 .blog-grid{
   display:grid;
   gap: var(--s-3);
@@ -283,7 +346,6 @@ footer small{
   line-height:1.6;
 }
 
-/* ===== SINGLE BLOG POST PAGE ===== */
 .article{
   max-width: 740px;
   margin-inline:auto;
@@ -309,7 +371,6 @@ footer small{
 }
 .article .prose{ font-size:1rem; }
 
-/* optional: “back to blog” link */
 .backlink{
   display:inline-block;
   margin-top: var(--s-3);
@@ -317,3 +378,8 @@ footer small{
   color:var(--color-accent-1);
 }
 .backlink:hover{ text-decoration:underline; }
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+}
